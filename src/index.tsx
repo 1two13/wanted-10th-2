@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Reset } from 'styled-reset';
 
 import App from './App';
+import GlobalStyles from './styles/GlobalStyles';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.Fragment>
-    <Reset />
+    <GlobalStyles />
     <App />
   </React.Fragment>
 );
