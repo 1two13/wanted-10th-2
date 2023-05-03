@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import SuggestedItem from './SuggestedItem';
 
 function SuggestedList() {
+function SuggestedList({ suggestedList, selectedIndex }: any) {
   return (
     <Div>
       <div>
