@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { SuggestedListProps, ElementType } from '../types/types';
 import SearchSvg from './SearchSvg';
 
-function SuggestedList({ suggestedList, selectedIndex }: any) {
+function SuggestedList({ suggestedList, selectedIndex }: SuggestedListProps) {
   return (
     <div>
       {suggestedList.length > 0 ? (
         <Div>
           <div>
-            {suggestedList.map((el: any, index: number) => (
+            {suggestedList.map((el: ElementType, index: number) => (
               <SuggestedItem key={el.id} isFocus={index === selectedIndex}>
                 <div>
                   <SearchSvg />

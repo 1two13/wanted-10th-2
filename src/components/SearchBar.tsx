@@ -3,15 +3,16 @@ import styled from 'styled-components';
 
 import { EXPIRATION_TIME_IN_MS } from 'src/static/constants';
 import searchApi from '@api/searchApi';
+import { SearchBarDivProps, SuggestedListState, CacheState } from '@type/types';
 import SearchSvg from './SearchSvg';
 import SuggestedList from './SuggestedList';
 
 function SearchBar() {
   const [isClicked, setIsClicked] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [suggestedList, setSuggestedList] = useState<any>([]);
+  const [suggestedList, setSuggestedList] = useState<SuggestedListState>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [cache, setCache] = useState<any>({ data: {}, expireTime: null });
+  const [cache, setCache] = useState<CacheState>({ data: {}, expireTime: null });
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -105,11 +106,7 @@ function SearchBar() {
 
 export default SearchBar;
 
-interface DivProps {
-  isClicked: boolean;
-}
-
-const Div = styled.div<DivProps>`
+const Div = styled.div<SearchBarDivProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
