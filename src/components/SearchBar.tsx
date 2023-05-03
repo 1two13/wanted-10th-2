@@ -1,11 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
+import { EXPIRATION_TIME_IN_MS } from 'src/static/constants';
+import searchApi from '@api/searchApi';
 import SearchSvg from './SearchSvg';
 import SuggestedList from './SuggestedList';
 
 function SearchBar() {
   const [isClicked, setIsClicked] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [suggestedList, setSuggestedList] = useState<any>([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [cache, setCache] = useState<any>({ data: {}, expireTime: null });
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -20,6 +26,58 @@ function SearchBar() {
 
   const onClickInput = () => setIsClicked(true);
 
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    if (e.target.value.length === 0) setSuggestedList([]);
+  };
+
+  // FIXME 새로고침했을 때 expireTime이 날라가는게 맞는지
+  if (cache.expireTime && Date.now() >= cache.expireTime) {
+    cache.data = {};
+    cache.expireTime = null;
+  }
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      if (inputValue === '') return;
+      if (Object.keys(cache.data).includes(inputValue)) {
+        const suggestedList = cache.data[inputValue];
+        setSuggestedList([...suggestedList]);
+      } else {
+        try {
+          const response = await searchApi(inputValue);
+          setSuggestedList([...response]);
+          cache.data[inputValue] = response;
+          cache.expireTime = Date.now() + EXPIRATION_TIME_IN_MS;
+        } catch (e) {
+          console.log(e);
+        } finally {
+          console.info('calling api');
+        }
+      }
+    };
+
+    fetchApi();
+  }, [inputValue]);
+
+  const keyboardHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (suggestedList.length > 0) {
+      switch (e.key) {
+        case 'ArrowDown':
+          setSelectedIndex(selectedIndex + 1);
+          if (selectedIndex >= suggestedList.length - 1) setSelectedIndex(0);
+          break;
+        case 'ArrowUp':
+          setSelectedIndex(selectedIndex - 1);
+          if (selectedIndex <= 0) setSelectedIndex(0);
+          break;
+        case 'Escape': // esc 눌렀을때,
+          setSelectedIndex(0);
+          break;
+      }
+    }
+  };
+
   return (
     <div>
       <Div isClicked={isClicked}>
@@ -27,13 +85,20 @@ function SearchBar() {
           <div>
             <SearchSvg />
           </div>
-          <Input placeholder="질환명을 입력해 주세요." ref={inputRef} onClick={onClickInput} />
+          <Input
+            placeholder="질환명을 입력해 주세요."
+            ref={inputRef}
+            value={inputValue}
+            onClick={onClickInput}
+            onChange={onChangeInput}
+            onKeyDown={keyboardHandler}
+          />
         </Form>
         <Svg>
           <SearchSvg />
         </Svg>
       </Div>
-      {isClicked ? <SuggestedList /> : ''}
+      {isClicked ? <SuggestedList suggestedList={suggestedList} selectedIndex={selectedIndex} /> : ''}
     </div>
   );
 }
