@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import SearchSvg from './SearchSvg';
+import SuggestedList from './SuggestedList';
 
 function SearchBar() {
   const [isClicked, setIsClicked] = useState(false);
@@ -20,17 +21,20 @@ function SearchBar() {
   const onClickInput = () => setIsClicked(true);
 
   return (
-    <Div isClicked={isClicked}>
-      <Form>
-        <div>
+    <div>
+      <Div isClicked={isClicked}>
+        <Form>
+          <div>
+            <SearchSvg />
+          </div>
+          <Input placeholder="질환명을 입력해 주세요." ref={inputRef} onClick={onClickInput} />
+        </Form>
+        <Svg>
           <SearchSvg />
-        </div>
-        <Input placeholder="질환명을 입력해 주세요." ref={inputRef} onClick={onClickInput} />
-      </Form>
-      <Svg>
-        <SearchSvg />
-      </Svg>
-    </Div>
+        </Svg>
+      </Div>
+      {isClicked ? <SuggestedList /> : ''}
+    </div>
   );
 }
 
@@ -47,6 +51,7 @@ const Div = styled.div<DivProps>`
   width: 37%;
   height: 70px;
   margin: 0 auto;
+  margin-bottom: 0.5%;
   border-radius: 42px;
   border: 2px solid ${props => (props.isClicked ? '#007be9' : '#ffffff')};
   background-color: #ffffff;
