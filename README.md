@@ -2,12 +2,12 @@
 
 ## 목차
 
-- [배포링크](https://wanted-10th-2-pp5wjjux7-1two13.vercel.app/)
-- [주요기능](https://wanted-10th-2-pp5wjjux7-1two13.vercel.app/)
-- [실행방법](https://wanted-10th-2-pp5wjjux7-1two13.vercel.app/)
-- [개발환경](https://wanted-10th-2-pp5wjjux7-1two13.vercel.app/)
-- [기술스택](https://wanted-10th-2-pp5wjjux7-1two13.vercel.app/)
-- [파일구조](https://wanted-10th-2-pp5wjjux7-1two13.vercel.app/)
+- 배포링크
+- 주요기능
+- 실행방법
+- 개발환경
+- 기술스택
+- 파일구조
 
 ## 🔗 [배포링크](https://wanted-10th-2-pp5wjjux7-1two13.vercel.app/)
 
