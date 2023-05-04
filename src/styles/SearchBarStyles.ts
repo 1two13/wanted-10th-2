@@ -28,13 +28,12 @@ const Form = styled.form`
 const Input = styled.input`
   width: 100%;
   height: 80%;
-  margin-left: 12px;
+  margin-left: 16px;
   outline: none;
   border: none;
   &::placeholder {
     color: #a7afb7;
     font-size: 18px;
-    font-weight: 100;
   }
 `;
 

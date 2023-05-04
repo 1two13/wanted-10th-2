@@ -82,11 +82,15 @@ function SearchBar() {
     <div>
       <Div isClicked={isClicked}>
         <Form>
-          <div>
-            <SearchSvg />
-          </div>
+          {isClicked ? (
+            ''
+          ) : (
+            <div>
+              <SearchSvg />
+            </div>
+          )}
           <Input
-            placeholder="질환명을 입력해 주세요."
+            placeholder={isClicked ? '' : '질환명을 입력해 주세요.'}
             ref={inputRef}
             value={inputValue}
             onClick={onClickInput}
