@@ -12,7 +12,7 @@ function SearchBar() {
   const [inputValue, setInputValue] = useState('');
   const [suggestedList, setSuggestedList] = useState<SuggestedListState>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [cache, setCache] = useState<CacheState>({ data: {}, expireTime: null });
+  const [expireTime, setExpireTime] = useState(0);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -32,24 +32,23 @@ function SearchBar() {
     if (e.target.value.length === 0) setSuggestedList([]);
   };
 
-  // FIXME 새로고침했을 때 expireTime이 날라가는게 맞는지
-  if (cache.expireTime && Date.now() >= cache.expireTime) {
-    cache.data = {};
-    cache.expireTime = null;
+  if (expireTime > 0 && Date.now() >= expireTime) {
+    localStorage.clear();
   }
 
   useEffect(() => {
     const fetchApi = async () => {
       if (inputValue === '') return;
-      if (Object.keys(cache.data).includes(inputValue)) {
-        const suggestedList = cache.data[inputValue];
-        setSuggestedList([...suggestedList]);
+
+      const suggestedList = localStorage.getItem(inputValue);
+      if (suggestedList) {
+        setSuggestedList(JSON.parse(suggestedList));
       } else {
         try {
           const response = await searchApi(inputValue);
           setSuggestedList([...response]);
-          cache.data[inputValue] = response;
-          cache.expireTime = Date.now() + EXPIRATION_TIME_IN_MS;
+          localStorage.setItem(inputValue, JSON.stringify(response));
+          setExpireTime(Date.now() + EXPIRATION_TIME_IN_MS);
         } catch (e) {
           console.log(e);
         } finally {
