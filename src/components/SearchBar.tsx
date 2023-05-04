@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import { EXPIRATION_TIME_IN_MS } from 'src/static/constants';
+import { EXPIRATION_TIME_IN_MS, DEBOUNCE_TIME_IN_MS } from 'src/static/constants';
 import searchApi from '@api/searchApi';
 import { SuggestedListState } from '@type/types';
 import { Div, Form, Input, Svg } from '@styles/SearchBarStyles';
@@ -15,7 +15,7 @@ function SearchBar() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [expireTime, setExpireTime] = useState(0);
   const inputRef = useRef(null);
-  const debouncedValue = useDebounce(inputValue, 1000);
+  const debouncedValue = useDebounce(inputValue, DEBOUNCE_TIME_IN_MS);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
