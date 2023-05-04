@@ -39,6 +39,7 @@ function SearchBar() {
   useEffect(() => {
     const fetchApi = async () => {
       if (inputValue === '') return;
+      setExpireTime(Date.now() + EXPIRATION_TIME_IN_MS);
 
       const suggestedList = localStorage.getItem(inputValue);
       if (suggestedList) {
@@ -48,7 +49,6 @@ function SearchBar() {
           const response = await searchApi(inputValue);
           setSuggestedList([...response]);
           localStorage.setItem(inputValue, JSON.stringify(response));
-          setExpireTime(Date.now() + EXPIRATION_TIME_IN_MS);
         } catch (e) {
           console.log(e);
         } finally {
