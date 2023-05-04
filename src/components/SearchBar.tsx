@@ -4,6 +4,7 @@ import { EXPIRATION_TIME_IN_MS } from 'src/static/constants';
 import searchApi from '@api/searchApi';
 import { SuggestedListState } from '@type/types';
 import { Div, Form, Input, Svg } from '@styles/SearchBarStyles';
+import useDebounce from '@hooks/useDebounce';
 import SearchSvg from './SearchSvg';
 import SuggestedList from './SuggestedList';
 
@@ -14,6 +15,7 @@ function SearchBar() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [expireTime, setExpireTime] = useState(0);
   const inputRef = useRef(null);
+  const debouncedValue = useDebounce(inputValue, 1000);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -51,14 +53,15 @@ function SearchBar() {
           localStorage.setItem(inputValue, JSON.stringify(response));
         } catch (e) {
           console.log(e);
-        } finally {
-          console.info('calling api');
         }
       }
+      console.info('calling api');
     };
 
-    fetchApi();
-  }, [inputValue]);
+    if (!debouncedValue) {
+      setSuggestedList([]);
+    } else fetchApi();
+  }, [inputValue, debouncedValue]);
 
   const keyboardHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (suggestedList.length > 0) {
