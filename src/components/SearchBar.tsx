@@ -64,7 +64,7 @@ function SearchBar() {
   }, [inputValue, debouncedValue]);
 
   const keyboardHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (suggestedList.length > 0) {
+    if (suggestedList.length > 0 && e.nativeEvent.isComposing === false) {
       switch (e.key) {
         case 'ArrowDown':
           setSelectedIndex(selectedIndex + 1);
