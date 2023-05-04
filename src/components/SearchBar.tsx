@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { EXPIRATION_TIME_IN_MS } from 'src/static/constants';
 import searchApi from '@api/searchApi';
-import { SearchBarDivProps, SuggestedListState, CacheState } from '@type/types';
+import { SearchBarDivProps, SuggestedListState } from '@type/types';
 import SearchSvg from './SearchSvg';
 import SuggestedList from './SuggestedList';
 
