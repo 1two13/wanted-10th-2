@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   display: flex;
-  width: 37%;
+  width: 25%;
   min-height: 150px;
   margin: 0 auto;
   padding: 3% 2% 2% 2%;

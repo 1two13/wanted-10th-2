@@ -5,7 +5,7 @@ const Div = styled.div<SearchBarDivProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 37%;
+  width: 25%;
   height: 70px;
   margin: 0 auto;
   margin-bottom: 0.5%;
