@@ -9,7 +9,7 @@
 - 기술스택
 - 파일구조
 
-## 🔗 [배포링크](https://wanted-10th-2-pp5wjjux7-1two13.vercel.app/)
+## 🔗 
 
 ## 주요기능
 
