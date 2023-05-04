@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import Svg from '@styles/SearchSvgStyles';
 
 function SearchSvg() {
   return (
@@ -15,8 +15,3 @@ function SearchSvg() {
 }
 
 export default SearchSvg;
-
-const Svg = styled.svg`
-  width: 21px;
-  height: 21px;
-`;

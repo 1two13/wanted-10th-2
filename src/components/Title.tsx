@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+
 import { FIRST_TITLE, SECOND_TITLE } from 'src/static/constants';
+import Div from '@styles/TitleStyles';
 
 function Title() {
   return (
@@ -12,11 +13,3 @@ function Title() {
 }
 
 export default Title;
-
-const Div = styled.div`
-  margin-bottom: 40px;
-  font-size: 3.5rem;
-  font-weight: 700;
-  letter-spacing: -0.018em;
-  line-height: 1.6;
-`;
