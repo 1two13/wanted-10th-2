@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Div, SuggestedItem } from '@styles/SuggestedListStyles';
+import { NONE_SUGGESTED_LIST } from 'src/static/constants';
 import { SuggestedListProps, ElementType } from '../types/types';
 import SearchSvg from './SearchSvg';
 
@@ -24,7 +25,7 @@ function SuggestedList({ suggestedList, selectedIndex }: SuggestedListProps) {
         <Div>
           <div>
             <SuggestedItem>
-              <div>검색어 없음</div>
+              <div>{NONE_SUGGESTED_LIST}</div>
             </SuggestedItem>
           </div>
         </Div>
